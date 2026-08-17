@@ -1,10 +1,10 @@
 function getRiskColor(riskLevel) {
-  if (riskLevel === "safe") return "#3FA79E";      // เขียว
-  if (riskLevel === "caution") return "#E8B23D";   // เหลือง
-  if (riskLevel === "warn") return "#E8792E";      // ส้ม
-  if (riskLevel === "danger") return "#D5432B";    // แดง
-  if (riskLevel === "extreme") return "#A62639";   // แดงเข้ม
-  return "#7C8A8F"; // สีเทา ถ้าไม่รู้จักค่า
+  if (riskLevel === "safe") return "#29e869";      
+  if (riskLevel === "caution") return "#E8B23D";   
+  if (riskLevel === "warn") return "#E8792E";      
+  if (riskLevel === "danger") return "#D5432B";   
+  if (riskLevel === "extreme") return "#A62639";   
+  return "#7C8A8F"; 
 }
 
 export default function HeatRiskDashboard() {
