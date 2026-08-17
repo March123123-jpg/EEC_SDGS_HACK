@@ -57,7 +57,6 @@ async def receive_reading(data: SensorData):
     record["risk"] = risk_level
     readings.append(record)
     
-    # บรอดแคสต์ข้อมูลออกทาง WebSocket แบบ Real-time
     await manager.broadcast(record)
     
     return {"status": "received", "data": record}
