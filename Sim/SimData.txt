@@ -1,0 +1,11 @@
+#Datasim+dtabase+Historic data
+# ส่งข้อมูลเข้า Backend ทุก 3–5 วินาที
+# Database
+# เก็บ:
+# timestamp
+# zone
+# temperature
+# humidity
+# risk_level
+# risk_value
+# recommendation

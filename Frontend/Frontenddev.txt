@@ -1,0 +1,9 @@
+#Dashboard + Charts
+# ทำ Dashboard
+# Current temperature
+# Humidity
+# Risk level
+# Zone status
+# Alert
+# Recommendation
+# Historical graph

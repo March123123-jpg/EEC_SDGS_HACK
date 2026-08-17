@@ -1,0 +1,5 @@
+# Backend → API
+# Risk engine → Risk Function
+# Frontend → Dashboard Mock
+# Database → Simulator
+# Intergration → Project Setup + Integration

@@ -1,0 +1,7 @@
+#FastAPI+API+WebSocket
+# สร้าง FastAPI
+# API รับข้อมูล Environment
+# API ส่ง Risk
+# API ส่ง Historical Data
+# เชื่อม Frontend
+# ถ้ามีเวลา → WebSocket

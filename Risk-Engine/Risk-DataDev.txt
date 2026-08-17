@@ -1,0 +1,7 @@
+#WBGT + Risk engine + Recommentdation
+# ใช้ เกณฑ์ WBGT/Heat Risk ที่มีแหล่งอ้างอิง
+# Temperature
+# Humidity
+# Heat Risk Calculation
+# Risk Level
+# Recommendation
