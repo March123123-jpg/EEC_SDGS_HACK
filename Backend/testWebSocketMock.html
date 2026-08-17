@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h2>WebSocket Real-time Test</h2>
+    <h3 id="status" style="color: orange;">Status: Connecting...</h3>
+    
+    <h3>Received Data:</h3>
+    <pre id="output" style="background: #1e1e1e; color: #00ff00; padding: 15px; border-radius: 5px; font-size: 16px;"></pre>
+
+    <script>
+        const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+
+        ws.onopen = () => {
+            const statusEl = document.getElementById("status");
+            statusEl.innerText = "Status: CONNECTED 🟢";
+            statusEl.style.color = "green";
+        };
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+        };
+
+        ws.onerror = (error) => {
+            const statusEl = document.getElementById("status");
+            statusEl.innerText = "Status: ERROR 🔴 (Check if Uvicorn is running)";
+            statusEl.style.color = "red";
+        };
+
+        ws.onclose = () => {
+            const statusEl = document.getElementById("status");
+            statusEl.innerText = "Status: DISCONNECTED ⚪";
+            statusEl.style.color = "gray";
+        };
+    </script>
+</body>
+</html>
