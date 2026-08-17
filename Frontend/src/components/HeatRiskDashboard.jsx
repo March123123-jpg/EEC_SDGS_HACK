@@ -67,10 +67,37 @@ export default function HeatRiskDashboard() {
       ],
     },
   ];
+    const alertZones = mockZones.filter(
+    (z) => z.risk_level === "danger" || z.risk_level === "extreme"
+  );
 
   return (
     <div style={{ padding: 32, background: "#14181B", minHeight: "100vh", fontFamily: "sans-serif" }}>
       <h1 style={{ color: "white", marginBottom: 24 }}>Heat Risk Dashboard</h1>
+       
+       {alertZones.length > 0 && (
+        <div
+          style={{
+            background: "#D5432B22",
+            border: "1px solid #D5432B55",
+            borderRadius: 8,
+            padding: 16,
+            marginBottom: 24,
+            color: "white",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: 600, marginBottom: 8 }}>
+            <AlertTriangle size={18} color="#D5432B" />
+            <span>แจ้งเตือน: พบ {alertZones.length} โซนที่มีความเสี่ยงสูง</span>
+          </div>
+          {alertZones.map((z) => (
+            <div key={z.zone} style={{ fontSize: 14, color: "#C9C4B8", paddingLeft: 26 }}>
+              • {z.zone} — {getRiskLabel(z.risk_level)} ({z.risk_value})
+            </div>
+          ))}
+        </div>
+      )}
+      
       <div
         style={{
           display: "grid",
