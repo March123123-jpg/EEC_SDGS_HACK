@@ -1,3 +1,5 @@
+import { Flame, Droplets, AlertTriangle } from "lucide-react";
+
 function getRiskColor(riskLevel) {
   if (riskLevel === "safe") return "#29e869";      
   if (riskLevel === "caution") return "#E8B23D";   
@@ -6,6 +8,16 @@ function getRiskColor(riskLevel) {
   if (riskLevel === "extreme") return "#A62639";   
   return "#7C8A8F"; 
 }
+
+function getRiskLabel(riskLevel) {
+  if (riskLevel === "safe") return "ปกติ";
+  if (riskLevel === "caution") return "เฝ้าระวัง";
+  if (riskLevel === "warn") return "เตือนภัย";
+  if (riskLevel === "danger") return "อันตราย";
+  if (riskLevel === "extreme") return "วิกฤต";
+  return riskLevel;
+}
+
 
 export default function HeatRiskDashboard() {
   const mockZones = [
@@ -36,30 +48,84 @@ export default function HeatRiskDashboard() {
   ];
 
   return (
-    <div style={{ padding: 24, color: "white", background: "#14181B", minHeight: "100vh" }}>
-      <h1>Heat Risk Dashboard</h1>
+    <div style={{ padding: 32, background: "#14181B", minHeight: "100vh", fontFamily: "sans-serif" }}>
+      <h1 style={{ color: "white", marginBottom: 24 }}>Heat Risk Dashboard</h1>
 
-      {mockZones.map((zoneData) => (
-        <div key={zoneData.zone} style={{ marginBottom: 20, borderBottom: "1px solid #333", paddingBottom: 12 }}>
-          <h2 style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: 16,
+        }}
+      >
+      {mockZones.map((zoneData) => {
+        const color = getRiskColor(zoneData.risk_level);
+          return (
+            <div
+              key={zoneData.zone}
               style={{
-                width: 12,
-                height: 12,
-                borderRadius: "50%",
-                background: getRiskColor(zoneData.risk_level),
-                display: "inline-block",
+                background: "#1D2327",
+                border: `1px solid ${color}55`,
+                borderRadius: 8,
+                padding: 20,
+                color: "white",
               }}
-            />
-            {zoneData.zone}
-          </h2>
-          <p>อุณหภูมิ: {zoneData.temperature}°C</p>
-          <p>ความชื้น: {zoneData.humidity}%</p>
-          <p>ระดับความเสี่ยง: {zoneData.risk_level}</p>
-          <p>ค่าความเสี่ยง: {zoneData.risk_value}</p>
-          <p>คำแนะนำ: {zoneData.recommendation}</p>
-        </div>
-      ))}
+            >
+               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+                <span
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    background: color,
+                    display: "inline-block",
+                  }}
+                />
+                <span style={{ fontWeight: 600, fontSize: 16 }}>{zoneData.zone}</span>
+              </div>
+       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14 }}>
+                  <Flame size={16} color="#E8792E" />
+                  <span>{zoneData.temperature}°C</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14 }}>
+                  <Droplets size={16} color="#3FA7A0" />
+                  <span>{zoneData.humidity}%</span>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  display: "inline-block",
+                  padding: "4px 10px",
+                  borderRadius: 4,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: color,
+                  background: `${color}22`,
+                  marginBottom: 14,
+                }}
+              >
+                {getRiskLabel(zoneData.risk_level)} ({zoneData.risk_value})
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: 8,
+                  fontSize: 13,
+                  color: "#C9C4B8",
+                  borderTop: "1px solid #2B3237",
+                  paddingTop: 12,
+                }}
+              >
+                <AlertTriangle size={16} color={color} style={{ flexShrink: 0, marginTop: 2 }} />
+                <span>{zoneData.recommendation}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
