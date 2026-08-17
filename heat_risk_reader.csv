@@ -1,0 +1,2 @@
+"id","timestamp","zone_id","temperature","humidity","risk_level","risk_value","recommendation"
+2,"2026-08-17 00:00:00",1,36.50,70.00,"DANGER",30.20,"nothing"
