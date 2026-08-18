@@ -1,16 +1,30 @@
-# React + Vite
+# Heat Risk Dashboard (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Dashboard แสดงสถานะความเสี่ยงจากความร้อนของแรงงานในพื้นที่อุตสาหกรรม EEC
+ส่วนหนึ่งของโปรเจกต์ Real-time Heat Risk Monitoring & Early Warning System
 
-Currently, two official plugins are available:
+พัฒนาด้วย **React and Vite**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- แสดงอุณหภูมิ ความชื้น และระดับความเสี่ยง (Risk Level) ของแต่ละโซน
+- จุดสีและป้ายบอกสถานะความเสี่ยงแบบ real-time
+- แจ้งเตือนอัตโนมัติ (Alert) เมื่อพบโซนที่มีความเสี่ยงสูง
+- กราฟแนวโน้ม WBGT ย้อนหลังของแต่ละโซน
+- คำแนะนำการปฏิบัติงานตามระดับความเสี่ยง
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## วิธีรัน
 
-## Expanding the Oxlint configuration
+```bash
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+จากนั้นเปิด [http://localhost:5173](http://localhost:5173)
+
+## Tech Stack
+
+- React ไลบรารีหลักสำหรับสร้าง UI ที่มีประสิทธิภาพสูง
+- Vite เครื่องมือ Build Tool ที่เร็วมาก ช่วยให้เริ่มโปรเจกต์และรีโหลดหน้าเว็บตอนพัฒนาได้ทันใจ
+- Recharts ไลบรารีทำกราฟที่รองรับ Responsive และเข้ากับคอมโพเนนต์ของ React ได้อย่างลงตัว
+- Lucide React ชุดไอคอนสไตล์มินิมอลที่สวยงาม โหลดเร็ว และปรับแต่งได้ง่าย
