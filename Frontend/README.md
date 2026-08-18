@@ -13,30 +13,6 @@ Dashboard แสดงสถานะความเสี่ยงจากค�
 - กราฟแนวโน้ม WBGT ย้อนหลังของแต่ละโซน
 - คำแนะนำการปฏิบัติงานตามระดับความเสี่ยง
 
-## โครงสร้างโปรเจกต์
-```
-
-Frontend/
-│
-├── 📂 src/
-│   ├── 📂 assets/
-│   │
-│   ├── 📂 components/
-│   │   └── 📄 HeatRiskDashboard.jsx
-│   │
-│   ├── 🎨 App.css
-│   ├── ⚛️ App.jsx
-│   ├── 🎨 index.css
-│   └── ⚛️ main.jsx
-│
-├── 📄 index.html
-├── 📦 package.json
-├── 📦 package-lock.json
-├── ⚙️ vite.config.js
-├── 🚫 .gitignore
-└── 📖 README.md
-```
-
 ## วิธีรัน
 
 ```bash
