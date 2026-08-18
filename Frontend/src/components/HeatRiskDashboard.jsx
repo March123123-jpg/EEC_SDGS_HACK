@@ -88,12 +88,12 @@ export default function HeatRiskDashboard() {
       {alertZones.length > 0 && (
         <div
           style={{
-            background: "rgba(213, 67, 43, 0.08)",
-            border: "none",
+            background: "#0F1316",
+            border: "1px solid #a20f0fde",
             borderRadius: 12,
             padding: "16px 20px",
             color: "white",
-            boxShadow: "0 0 25px rgba(213, 67, 43, 0.15)",
+            boxShadow: "0 0 25px rgba(97, 21, 10, 0.84)",
             backdropFilter: "blur(8px)",
           }}
         >
@@ -102,7 +102,7 @@ export default function HeatRiskDashboard() {
             <span>แจ้งเตือน: พบ {alertZones.length} โซนที่มีความเสี่ยงสูง</span>
           </div>
           {alertZones.map((z) => (
-            <div key={z.zone} style={{ fontSize: 14, color: "#A8B4B8", paddingLeft: 30 }}>
+            <div key={z.zone} style={{ fontSize: 16, color: "#A8B4B8", paddingLeft: 30 }}>
               • <strong style={{ color: "#FFF" }}>{z.zone}</strong>  <span style={{ color: getRiskColor(z.risk_level) }}>{getRiskLabel(z.risk_level)}</span> ({z.risk_value} WBGT)
             </div>
           ))}
@@ -129,7 +129,7 @@ export default function HeatRiskDashboard() {
               onMouseLeave={() => setHoveredZone(null)}
               style={{
                 background: "rgba(255, 255, 255, 0.08)",
-                border: `1px solid ${isSelected || isHovered ? color : "rgba(255, 255, 255, 0.87)"}`,
+                border: `1px solid ${isSelected || isHovered ? color : "rgba(255, 255, 255, 0.39)"}`,
                 borderRadius: 14,
                 padding: 22,
                 color: "white",
