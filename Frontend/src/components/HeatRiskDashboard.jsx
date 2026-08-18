@@ -75,9 +75,7 @@ export default function HeatRiskDashboard() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24, padding: 32, backgroundColor: "#0F1316", minHeight: "100vh", fontFamily: "sans-serif", color: "#E1E6E8" }}>
-      
-      {/* Header */}
-      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 16 ,borderBottom: "2px solid rgba(255, 255, 255, 0.39)", paddingBottom: 16, marginBottom: 24 }}>
         <div style={{ width: 48, height: 48, borderRadius: 12, background: "linear-gradient(135deg, #E8792E 0%, #D5432B 100%)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px #E8792E55" }}>
           <Flame size={26} color="#FFFFFF" />
         </div>
@@ -91,7 +89,7 @@ export default function HeatRiskDashboard() {
         <div
           style={{
             background: "rgba(213, 67, 43, 0.08)",
-            border: "1px solid rgba(213, 67, 43, 0.4)",
+            border: "none",
             borderRadius: 12,
             padding: "16px 20px",
             color: "white",
@@ -105,13 +103,12 @@ export default function HeatRiskDashboard() {
           </div>
           {alertZones.map((z) => (
             <div key={z.zone} style={{ fontSize: 14, color: "#A8B4B8", paddingLeft: 30 }}>
-              • <strong style={{ color: "#FFF" }}>{z.zone}</strong> — <span style={{ color: getRiskColor(z.risk_level) }}>{getRiskLabel(z.risk_level)}</span> ({z.risk_value} WBGT)
+              • <strong style={{ color: "#FFF" }}>{z.zone}</strong>  <span style={{ color: getRiskColor(z.risk_level) }}>{getRiskLabel(z.risk_level)}</span> ({z.risk_value} WBGT)
             </div>
           ))}
         </div>
       )}
 
-    
       <div
         style={{
           display: "grid",
@@ -131,8 +128,8 @@ export default function HeatRiskDashboard() {
               onMouseEnter={() => setHoveredZone(zoneData.zone)}
               onMouseLeave={() => setHoveredZone(null)}
               style={{
-                background: "#161B1E",
-                border: `1px solid ${isSelected || isHovered ? color : "rgba(255, 255, 255, 0.08)"}`,
+                background: "rgba(255, 255, 255, 0.08)",
+                border: `1px solid ${isSelected || isHovered ? color : "rgba(255, 255, 255, 0.87)"}`,
                 borderRadius: 14,
                 padding: 22,
                 color: "white",
@@ -190,7 +187,7 @@ export default function HeatRiskDashboard() {
                   paddingTop: 14,
                 }}
               >
-                <AlertTriangle size={16} color={color} style={{ flexShrink: 0, marginTop: 2 }} />
+                <AlertTriangle size={18} color={color} style={{ flexShrink: 0, marginTop: 2 }} />
                 <span>คำแนะนำ: {zoneData.recommendation}</span>
               </div>
             </div>
@@ -200,12 +197,12 @@ export default function HeatRiskDashboard() {
 
 
       {selectedZone && (
-        <div style={{ background: "#161B1E", padding: 24, borderRadius: 14, border: `1px solid ${getRiskColor(selectedZone.risk_level)}40`, boxShadow: `0 0 35px ${getRiskColor(selectedZone.risk_level)}15` }}>
+        <div style={{ background: "#212529", padding: 24, borderRadius: 14, border: `1px solid ${getRiskColor(selectedZone.risk_level)}40`, boxShadow: `0 0 35px ${getRiskColor(selectedZone.risk_level)}15` }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-            <h2 style={{ color: "white", margin: 0, fontSize: 18, fontWeight: 600 }}>{selectedZone.zone} - ประวัติแนวโน้ม WBGT</h2>
+            <h2 style={{ color: "white", margin: 0, fontSize: 18, fontWeight: 600 }}>( {selectedZone.zone} )  ประวัติแนวโน้ม WBGT</h2>
             <button
               onClick={() => setSelectedZone(null)}
-              style={{ background: "rgba(255,255,255,0.05)", border: "none", color: "#8E9DA2", borderRadius: 8, width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+              style={{ background: "rgba(255,255,255,0.05)", border: "none", color: "#dee5e8", borderRadius: 8, width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
             >
               <X size={18} />
             </button>
