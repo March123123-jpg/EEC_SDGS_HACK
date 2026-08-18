@@ -3,6 +3,11 @@ import random
 import psycopg2
 from datetime import datetime
 
+#how to use sim test
+#pip install psycopg2-binary
+#พิมพ์ python3 "test sim.py" ในterminalเพื่อเริ่มgenareteข้อมูล
+#กดctrl + c ในการหยุดการgenarateข้อมูล
+
 # ---------- 1. ตั้งค่าการเชื่อมต่อฐานข้อมูล ----------
 DB_CONFIG = {
     "host": "localhost",

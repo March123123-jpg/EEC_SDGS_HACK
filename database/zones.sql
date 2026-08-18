@@ -1,0 +1,14 @@
+-- Table: zones
+
+-- DROP TABLE IF EXISTS zones;
+
+CREATE TABLE IF NOT EXISTS zones (
+
+    id SERIAL PRIMARY KEY,
+
+    device_code VARCHAR(100) UNIQUE NOT NULL,
+
+    name VARCHAR(100) NOT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

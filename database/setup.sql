@@ -1,3 +1,39 @@
+-- Table: zones
+
+-- DROP TABLE IF EXISTS zones;
+
+CREATE TABLE IF NOT EXISTS zones (
+
+    id SERIAL PRIMARY KEY,
+
+    device_code VARCHAR(100) UNIQUE NOT NULL,
+
+    name VARCHAR(100) NOT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS sensor_readings (
+
+    id SERIAL PRIMARY KEY,
+
+    zone_id INTEGER NOT NULL,
+
+    temperature_c DOUBLE PRECISION NOT NULL,
+
+    humidity_pct DOUBLE PRECISION NOT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_sensor_zone
+
+        FOREIGN KEY (zone_id)
+
+        REFERENCES zones(id)
+
+        ON DELETE CASCADE
+);
+
 -- Table: risk_records
 
 -- DROP TABLE IF EXISTS risk_records;
@@ -33,3 +69,26 @@ CREATE INDEX IF NOT EXISTS idx_risk_reading
     ON risk_records USING btree
     (reading_id ASC NULLS LAST)
     TABLESPACE pg_default;
+
+CREATE TABLE IF NOT EXISTS alerts (
+
+    id SERIAL PRIMARY KEY,
+
+    zone_id INTEGER NOT NULL,
+
+    risk_level VARCHAR(30) NOT NULL,
+
+    message TEXT NOT NULL,
+
+    status VARCHAR(30) DEFAULT 'NEW',
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_alert_zone
+
+        FOREIGN KEY (zone_id)
+
+        REFERENCES zones(id)
+
+        ON DELETE CASCADE
+);

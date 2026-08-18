@@ -1,5 +1,5 @@
 import { Flame, Droplets, AlertTriangle, X, ShieldAlert } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 function getRiskColor(riskLevel) {
@@ -21,55 +21,111 @@ function getRiskLabel(riskLevel) {
 }
 
 export default function HeatRiskDashboard() {
+  const [zones, setZones] = useState([]);
   const [selectedZone, setSelectedZone] = useState(null);
-  const [hoveredZone, setHoveredZone] = useState(null);
+  // const [hoveredZone, setHoveredZone] = useState(null);
+  useEffect(() => {
+    const ws = new WebSocket(
+      "ws://localhost:8000/ws"
+    );
 
-  const mockZones = [
-    {
-      zone: "Zone A",
-      temperature: 34.2,
-      humidity: 55,
-      risk_level: "danger",
-      risk_value: 31.4,
-      recommendation: "ลดระยะเวลาทำงานต่อเนื่อง เพิ่มรอบพัก",
-      history: [
-        { time: "08:00", wbgt: 27.1 },
-        { time: "10:00", wbgt: 29.4 },
-        { time: "12:00", wbgt: 31.4 },
-        { time: "14:00", wbgt: 30.8 },
-      ],
-    },
-    {
-      zone: "Zone B",
-      temperature: 30.5,
-      humidity: 62,
-      risk_level: "caution",
-      risk_value: 27.8,
-      recommendation: "เพิ่มความถี่ในการพักดื่มน้ำ",
-      history: [
-        { time: "08:00", wbgt: 25.1 },
-        { time: "10:00", wbgt: 26.8 },
-        { time: "12:00", wbgt: 27.8 },
-        { time: "14:00", wbgt: 27.2 },
-      ],
-    },
-    {
-      zone: "Zone C",
-      temperature: 27.1,
-      humidity: 60,
-      risk_level: "safe",
-      risk_value: 25.2,
-      recommendation: "สามารถปฏิบัติงานได้ตามปกติ",
-      history: [
-        { time: "08:00", wbgt: 24.1 },
-        { time: "10:00", wbgt: 25.8 },
-        { time: "12:00", wbgt: 25.2 },
-        { time: "14:00", wbgt: 24.8 },
-      ],
-    },
-  ];
+    ws.onopen = () => {
+      console.log(
+        "Connected to Heat Risk WebSocket"
+      );
+    };
+    ws.onmessage = (event) => {
+      const data = JSON.parse(
+        event.data
+      );
 
-  const alertZones = mockZones.filter(
+      console.log(
+        "Received :",
+        data
+      );
+
+      const newZone = {
+        zone: data.device_code,
+        temperature: data.temperature_c,
+        humidity: data.humidity_pct,
+        risk_level:
+          data.risk_level.toLowerCase(),
+
+        risk_value:
+          data.wbgt,
+        
+        recommendation:
+          data.recommendation,
+
+        history: []
+    };
+
+      setZones((currentZones) => {
+
+        const existing = 
+          currentZones.find(
+            (z) =>
+              z.zone ===
+            Zone.zone
+          );
+
+          if(existing) {
+
+            return currentZones.map(
+              (z) => {
+                if (
+                  z.zone !== 
+                  newZone.zone
+                ) {
+                  return z;
+                }
+                return {
+                  ...newZone,
+
+                  history: [
+                    ...z.history,
+
+                    {
+                      time :
+                        new Date()
+                        .toLocaleTimeString(),
+                      
+                        wbgt:
+                          data.wbgt
+                    }
+                  ].slice(-20)
+                };
+              }
+            );
+          }
+
+          return [
+            ...currentZones,
+            newZone
+          ];
+      });
+    };
+
+    ws.onerror = (error) => {
+      console.error(
+        "WebSocket error:",
+        error
+      );
+    };
+
+    ws.onclose = () => {
+      console.log(
+        "WebSocket disconnected"
+      );
+    };
+
+    return () => {
+      ws.onclose();
+    };
+},[]);
+  
+
+  const alertZones = zones.filter(
     (z) => z.risk_level === "danger" || z.risk_level === "extreme"
   );
 
@@ -116,7 +172,7 @@ export default function HeatRiskDashboard() {
           gap: 20,
         }}
       >
-        {mockZones.map((zoneData) => {
+        {zones.map((zoneData) => {
           const color = getRiskColor(zoneData.risk_level);
           const isSelected = selectedZone?.zone === zoneData.zone;
           const isHovered = hoveredZone === zoneData.zone;
