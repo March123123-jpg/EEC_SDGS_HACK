@@ -14,16 +14,33 @@ Dashboard แสดงสถานะความเสี่ยงจากค�
 - คำแนะนำการปฏิบัติงานตามระดับความเสี่ยง
 
 ## โครงสร้างโปรเจกต์
-src/
-├── components/
-│ └── HeatRiskDashboard.jsx ← Component หลักของ Dashboard
-├── App.jsx
-└── main.jsx
+
+Frontend/
+│
+├── 📂 src/
+│   ├── 📂 assets/
+│   │
+│   ├── 📂 components/
+│   │   └── 📄 HeatRiskDashboard.jsx
+│   │
+│   ├── 🎨 App.css
+│   ├── ⚛️ App.jsx
+│   ├── 🎨 index.css
+│   └── ⚛️ main.jsx
+│
+├── 📄 index.html
+├── 📦 package.json
+├── 📦 package-lock.json
+├── ⚙️ vite.config.js
+├── 🚫 .gitignore
+└── 📖 README.md
 
 ## วิธีรัน
 
+```bash
 npm install
 npm run dev
+```
 
 จากนั้นเปิด [http://localhost:5173](http://localhost:5173)
 
